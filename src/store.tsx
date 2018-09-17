@@ -31,10 +31,9 @@ class Store implements IStore {
     @observable public todos: ITodo[] = [new Todo];
     @observable public filter = '';
     @computed get filteredTodos(): any {
-        console.log('filter', this.filter);
         const filter = new RegExp(this.filter, 'i');
         const filteredTodos = this.todos.filter((todo: any) => filter.test(todo.value));
-        console.log('filteredTodos', filteredTodos);
+        // console.log('filteredTodos', filteredTodos);
         return filteredTodos;
     }
     @action public addTodo(value: string) {
