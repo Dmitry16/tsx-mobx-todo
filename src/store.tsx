@@ -33,7 +33,7 @@ class Store implements IStore {
     @computed get filteredTodos(): any {
         const filter = new RegExp(this.filter, 'i');
         const filteredTodos = this.todos.filter((todo: any) => filter.test(todo.value));
-        // console.log('filteredTodos', filteredTodos);
+        console.log('filteredTodos', filteredTodos);
         return filteredTodos;
     }
     @action public addTodo(value: string) {
