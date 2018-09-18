@@ -4,7 +4,7 @@ import { action, computed, observable } from 'mobx';
 interface ITodo {
     value: string,
     id: number,
-    complete: boolean
+    complete: boolean,
 }
 class Todo implements ITodo {
     @observable public value: string;
@@ -24,20 +24,31 @@ export interface IStore {
     todos: ITodo[],
     filter: string,
     filteredTodos(): ITodo[],
-    addTodo(value: string): void
+    addTodo(value: string): void,
+    clearComplete(): void
 }
 
 class Store implements IStore {
-    @observable public todos: ITodo[] = [new Todo];
+    @observable public todos: ITodo[] = [];
     @observable public filter = '';
+
     @computed get filteredTodos(): any {
         const filter = new RegExp(this.filter, 'i');
-        const filteredTodos = this.todos.filter((todo: any) => filter.test(todo.value));
+        const filteredTodos = this.todos.filter((todo: ITodo) => !this.filter || filter.test(todo.value));
         console.log('filteredTodos', filteredTodos);
         return filteredTodos;
     }
+
     @action public addTodo(value: string) {
+        console.log('this.todos', this.todos);
         this.todos.push(new Todo(value));
+    }
+
+    @action public clearComplete(): void {
+        console.log('this.todos', this.todos);
+        const incompleteTodos = this.todos.filter((todo: ITodo) => !todo.complete);
+        (this.todos as any).replace(incompleteTodos);
+        
     }
 }
 

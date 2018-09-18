@@ -1,3 +1,4 @@
+/* tslint:disable */
 import { observer } from "mobx-react";
 import * as React from 'react';
 
@@ -38,12 +39,23 @@ export default class Todo extends React.Component<IProps, { value: string }> {
             e.target.value = '';
         }
     }
+    public toggleComplete(todo: ITodo): void {
+        todo.complete = !todo.complete;
+    }
+    public clearComplete() {
+        this.props.store.clearComplete();
+    }
 
     public render() {
 
         const { filteredTodos, filter } = this.props.store;
 
-        const TodoLis = (filteredTodos as any).map((todo: ITodo, ind: number) => <li key={ind}>{ todo.value }</li>)
+        const TodoLis = (filteredTodos as any).map((todo: ITodo, ind: number) => 
+            <li key={ind}>
+                <input type="checkbox" onChange={this.toggleComplete.bind(this, todo)} checked={todo.complete} />
+                { todo.value }
+            </li>
+        )
 
         return <div>
             <h3>Todos</h3>
@@ -54,6 +66,7 @@ export default class Todo extends React.Component<IProps, { value: string }> {
             <ul>
                 { TodoLis }
             </ul>
+            <a href="#" onClick={this.clearComplete.bind(this)}>clear complete</a>
         </div>
     }
 }
