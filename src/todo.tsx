@@ -57,7 +57,7 @@ export default class Todo extends React.Component<IProps, { value: string }> {
             </li>
         )
 
-        return <div>
+        return <div style={{padding: "1em"}}>
             <h3>Todos</h3>
             <div>filter todos</div>
             <input className="filter" value={filter} onChange={this.filterTodos} />
