@@ -57,12 +57,12 @@ export default class Todo extends React.Component<IProps, { value: string }> {
             </li>
         )
 
-        return <div style={{padding: "1em"}}>
+        return <div style={{display: "flex", flexDirection: "column", width: "15%", margin: "auto"}}>
             <h3>Todos</h3>
-            <div>filter todos</div>
-            <input className="filter" value={filter} onChange={this.filterTodos} />
             <div>add todo</div>
             <input className="addTodo" onKeyPress={this.addTodo} />
+            <div>filter todos</div>
+            <input className="filter" value={filter} onChange={this.filterTodos} />
             <ul>
                 { TodoLis }
             </ul>
